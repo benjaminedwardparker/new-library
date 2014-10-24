@@ -29,7 +29,8 @@ class LibraryController < ApplicationController
 
   def checkin
     @checkout = Checkout.find(params[:checkout_id])
-    if @checkout.update(checked_in_at: DateTime.now)
+    @checkout.checked_in_at = DateTime.now
+    if @checkout.save!
       @checkout.book.update(available: true)
       redirect_to root_path, notice: "#{@checkout.book.title} has been checked in"
     else
