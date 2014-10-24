@@ -1,0 +1,17 @@
+<h1>Check in a Book</h1>
+
+Steps:
+
+<ol>
+  <li>View all books checked-out</li>
+  <li>Click check-in on that</li>
+  <li>That will check in that book</li>
+</ol>
+
+<% @checkouts.each do |checkout| %>
+  <li>
+    <%= checkout.book.title %>. Checked Out by <%= checkout.patron.name %>  <%= distance_of_time_in_words checkout.checked_out_at, Time.now %> ago.
+    <%= link_to "Check-in", checkin_path(checkout_id: checkout.id), method: :post, data: {confirm: "Check in #{checkout.book.title}?"} %>
+
+  </li>
+<% end %>
